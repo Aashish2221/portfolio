@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --bg:#0a0a0f;
+    --surface:#13131a;
+    --card:#1a1a24;
+    --accent:#6c63ff;
+    --accent2:#00d4aa;
+    --text:#f0f0f5;
+    --muted:#8888a0;
+    --border:rgba(255,255,255,0.07);
+  }
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.7;overflow-x:hidden;}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;}
+  .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;}
+  .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--accent);letter-spacing:-0.5px;}
+  .nav-links{display:flex;gap:2rem;list-style:none;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--text);}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;align-items:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(108,99,255,0.12) 0%,transparent 70%);pointer-events:none;}
+  .hero::after{content:'';position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(0,212,170,0.08) 0%,transparent 70%);pointer-events:none;}
+  .hero-inner{max-width:1100px;margin:0 auto;width:100%;}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(108,99,255,0.12);border:1px solid rgba(108,99,255,0.3);border-radius:100px;padding:6px 16px;font-size:13px;color:#a09cf7;margin-bottom:2rem;}
+  .hero-badge span{width:8px;height:8px;border-radius:50%;background:var(--accent2);display:inline-block;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+  h1{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,6vw,5rem);font-weight:800;line-height:1.08;letter-spacing:-2px;margin-bottom:1.5rem;}
+  h1 .name{display:block;background:linear-gradient(135deg,#fff 40%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  h1 .role{display:block;color:var(--muted);font-size:0.55em;font-weight:400;letter-spacing:0;margin-top:0.5rem;}
+  .hero-desc{font-size:1.1rem;color:var(--muted);max-width:520px;margin-bottom:2.5rem;line-height:1.8;}
+  .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;}
+  .btn-primary{background:var(--accent);color:#fff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;transition:all 0.2s;border:none;cursor:pointer;}
+  .btn-primary:hover{background:#7c74ff;transform:translateY(-1px);}
+  .btn-secondary{background:transparent;color:var(--text);padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;border:1px solid var(--border);transition:all 0.2s;}
+  .btn-secondary:hover{border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.04);}
+  .hero-stats{display:flex;gap:2.5rem;margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);}
+  .stat-val{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--text);}
+  .stat-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+
+  /* SECTIONS */
+  section{padding:5rem 2rem;}
+  .section-inner{max-width:1100px;margin:0 auto;}
+  .section-tag{font-size:12px;font-weight:500;color:var(--accent2);text-transform:uppercase;letter-spacing:2px;margin-bottom:0.75rem;}
+  .section-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-1px;margin-bottom:3rem;}
+
+  /* SKILLS */
+  .skills-bg{background:var(--surface);}
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+  .skill-card{background:var(--surface);padding:1.75rem;transition:background 0.2s;}
+  .skill-card:hover{background:var(--card);}
+  .skill-icon{font-size:1.6rem;margin-bottom:1rem;}
+  .skill-name{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:0.4rem;}
+  .skill-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+  .skill-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:1rem;}
+  .tag{background:rgba(108,99,255,0.1);color:#a09cf7;font-size:11px;padding:3px 10px;border-radius:100px;border:1px solid rgba(108,99,255,0.2);}
+
+  /* PROJECTS */
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;}
+  .project-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.75rem;transition:all 0.25s;position:relative;overflow:hidden;}
+  .project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
+  .project-card:hover{border-color:rgba(108,99,255,0.3);transform:translateY(-3px);}
+  .project-card:hover::before{transform:scaleX(1);}
+  .project-num{font-size:11px;color:var(--muted);font-weight:500;margin-bottom:1rem;letter-spacing:1px;}
+  .project-title{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:0.5rem;}
+  .project-desc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:1.25rem;}
+  .project-stack{display:flex;flex-wrap:wrap;gap:6px;}
+  .stack-tag{background:rgba(0,212,170,0.08);color:#00d4aa;font-size:11px;padding:3px 10px;border-radius:100px;border:1px solid rgba(0,212,170,0.2);}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+  .about-text p{color:var(--muted);font-size:1.05rem;line-height:1.9;margin-bottom:1rem;}
+  .about-text strong{color:var(--text);}
+  .about-meta{display:flex;flex-direction:column;gap:1rem;}
+  .meta-item{display:flex;align-items:center;gap:12px;padding:1rem 1.25rem;background:var(--card);border:1px solid var(--border);border-radius:8px;}
+  .meta-icon{color:var(--accent2);font-size:1.1rem;min-width:20px;text-align:center;}
+  .meta-text{font-size:14px;color:var(--muted);}
+  .meta-text strong{display:block;color:var(--text);font-size:13px;margin-bottom:2px;}
+
+  /* CONTACT */
+  .contact-bg{background:var(--surface);}
+  .contact-box{max-width:640px;margin:0 auto;text-align:center;}
+  .contact-box p{color:var(--muted);font-size:1.05rem;margin-bottom:2rem;}
+  .contact-links{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:2rem;}
+  .contact-link{display:flex;align-items:center;gap:8px;padding:12px 20px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);text-decoration:none;font-size:14px;font-weight:500;transition:all 0.2s;}
+  .contact-link:hover{border-color:rgba(108,99,255,0.4);background:rgba(108,99,255,0.08);color:var(--accent);}
+  .email-bar{display:flex;align-items:center;gap:0;max-width:420px;margin:0 auto;}
+  .email-input{flex:1;padding:14px 18px;background:var(--card);border:1px solid var(--border);border-right:none;border-radius:8px 0 0 8px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;}
+  .email-input:focus{border-color:rgba(108,99,255,0.5);}
+  .email-btn{padding:14px 22px;background:var(--accent);color:#fff;border:none;border-radius:0 8px 8px 0;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background 0.2s;}
+  .email-btn:hover{background:#7c74ff;}
+
+  /* FOOTER */
+  footer{padding:2rem;border-top:1px solid var(--border);text-align:center;color:var(--muted);font-size:13px;}
+
+  @media(max-width:768px){
+    .about-grid{grid-template-columns:1fr;}
+    .hero-stats{gap:1.5rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">AP.</div>
+    <ul class="nav-links">
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><span></span> Available for freelance work</div>
+    <h1>
+      <span class="name">Aashish Patil</span>
+      <span class="role">Full Stack Web Developer</span>
+    </h1>
+    <p class="hero-desc">I build fast, clean, and scalable web applications using Next.js, Node.js, and Tailwind CSS — helping startups and businesses bring their ideas to life.</p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-secondary">Hire Me</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-val">2+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-val">10+</div>
+        <div class="stat-label">Projects Built</div>
+      </div>
+      <div>
+        <div class="stat-val">100%</div>
+        <div class="stat-label">Client Satisfaction</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-bg" id="skills">
+  <div class="section-inner">
+    <div class="section-tag">What I work with</div>
+    <div class="section-title">My Tech Stack</div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">⚡</div>
+        <div class="skill-name">Next.js / React</div>
+        <div class="skill-desc">Building fast, SEO-friendly web apps with server-side rendering and modern React patterns.</div>
+        <div class="skill-tags">
+          <span class="tag">Next.js 14</span>
+          <span class="tag">React</span>
+          <span class="tag">SSR/SSG</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🖥️</div>
+        <div class="skill-name">Node.js / Backend</div>
+        <div class="skill-desc">REST API development, authentication, and server-side logic with Express and Node.</div>
+        <div class="skill-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">Express</span>
+          <span class="tag">REST APIs</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🎨</div>
+        <div class="skill-name">Tailwind CSS</div>
+        <div class="skill-desc">Crafting beautiful, responsive UIs rapidly with utility-first CSS and clean design systems.</div>
+        <div class="skill-tags">
+          <span class="tag">Tailwind</span>
+          <span class="tag">Responsive</span>
+          <span class="tag">UI Design</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🗄️</div>
+        <div class="skill-name">Databases & APIs</div>
+        <div class="skill-desc">Data modeling and integration with modern databases and third-party API services.</div>
+        <div class="skill-tags">
+          <span class="tag">MongoDB</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">API Integration</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-tag">What I've built</div>
+    <div class="section-title">Featured Projects</div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-num">PROJECT 01</div>
+        <div class="project-title">Restaurant Booking App</div>
+        <div class="project-desc">A full-stack booking platform with real-time table availability, user authentication, and email confirmations for restaurant owners.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Next.js</span>
+          <span class="stack-tag">Node.js</span>
+          <span class="stack-tag">MongoDB</span>
+          <span class="stack-tag">Tailwind</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-num">PROJECT 02</div>
+        <div class="project-title">Task Manager SaaS</div>
+        <div class="project-desc">A productivity web app with user auth, team collaboration, task boards, and a REST API backend with role-based access control.</div>
+        <div class="project-stack">
+          <span class="stack-tag">React</span>
+          <span class="stack-tag">Express</span>
+          <span class="stack-tag">PostgreSQL</span>
+          <span class="stack-tag">JWT Auth</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-num">PROJECT 03</div>
+        <div class="project-title">SaaS Landing Page</div>
+        <div class="project-desc">A high-converting landing page for a B2B SaaS product — pixel-perfect design, animations, and optimized for speed and SEO.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Next.js</span>
+          <span class="stack-tag">Tailwind CSS</span>
+          <span class="stack-tag">Framer Motion</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-tag">Who I am</div>
+    <div class="section-title">About Me</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Hi, I'm <strong>Aashish Patil</strong>, a passionate full-stack developer based in <strong>India</strong>. I love turning ideas into real, working products that people actually use.</p>
+        <p>I specialize in building end-to-end web applications — from clean, fast frontends with <strong>Next.js and Tailwind</strong> to robust backends with <strong>Node.js and databases</strong>.</p>
+        <p>I'm currently open to freelance projects and long-term collaborations. If you have an idea or a problem to solve, I'd love to help you build it.</p>
+      </div>
+      <div class="about-meta">
+        <div class="meta-item">
+          <div class="meta-icon">📍</div>
+          <div class="meta-text"><strong>Location</strong>India (Available for Remote Work)</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-icon">💼</div>
+          <div class="meta-text"><strong>Availability</strong>Open to Freelance Projects</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-icon">🌐</div>
+          <div class="meta-text"><strong>Languages</strong>Hindi, English, Marathi</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-icon">⏱️</div>
+          <div class="meta-text"><strong>Response Time</strong>Within 2 hours</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-bg" id="contact">
+  <div class="section-inner">
+    <div class="contact-box">
+      <div class="section-tag" style="text-align:center;">Let's work together</div>
+      <div class="section-title">Get In Touch</div>
+      <p>Have a project in mind? I'd love to hear about it. Send me a message and I'll get back to you within 2 hours.</p>
+      <div class="email-bar">
+        <input class="email-input" type="email" placeholder="your@email.com" />
+        <button class="email-btn">Send Message</button>
+      </div>
+      <div class="contact-links">
+        <a class="contact-link" href="#">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a class="contact-link" href="#">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a class="contact-link" href="#">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Email Me
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Designed & built by Aashish Patil &nbsp;·&nbsp; Open to freelance opportunities</p>
+</footer>
+
+</body>
+</html>
